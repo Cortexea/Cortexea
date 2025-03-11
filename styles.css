@@ -133,7 +133,7 @@ section {
 }
 
 .cta-button {
-    background-color: #00FF00;
+    background-color: #00CC66;
     color: #000000;
     padding: 1rem 2rem;
     text-decoration: none;
@@ -143,7 +143,7 @@ section {
 }
 
 .cta-button:hover {
-    background-color: #00CC00;
+    background-color: #00A352;
 }
 
 .services-grid, .industries-grid, .usp-grid {
