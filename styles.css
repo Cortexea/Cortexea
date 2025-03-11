@@ -132,6 +132,10 @@ section {
     margin-bottom: 2rem;
 }
 
+#contact p {
+    text-align: center;
+}
+
 .cta-button {
     background-color: #00CC66;
     color: #000000;
