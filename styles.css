@@ -156,6 +156,21 @@ section {
     gap: 2rem;
 }
 
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.portfolio-image {
+    width: 100%;
+    height: 120px;
+    background-color: #1E1E1E; /* Darker shade for placeholder */
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(145deg, #1E1E1E, #333333); /* Subtle gradient */
+}
+
 .card {
     background: linear-gradient(145deg, #1E1E1E, #121212);
     padding: 2rem;
