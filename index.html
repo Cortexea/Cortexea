@@ -3,200 +3,532 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cortexea AI - AI-Powered Dapp Development</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Cortexea - Build dApps at the Speed of Thought</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles & Keyframes */
+        html {
+             scroll-behavior: smooth; /* Apply smooth scroll globally */
+             /* Adjusted scroll-padding based on potential header height */
+             scroll-padding-top: 70px; /* Example: Adjust if header height changes */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white; /* Default background */
+            color: #1f2937; /* Default text color (neutral-800) */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Keyframes for MovingBorderButton */
+        @keyframes animate {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        /* Keyframes for InfiniteMovingCards */
+        @keyframes scroll {
+          to {
+            transform: translate(calc(-50% - 1rem)); /* Adjusted for gap */
+          }
+        }
+
+        /* Class using the scroll keyframes */
+        .animate-scroll {
+           /* Dynamically set duration and direction via JS */
+           animation: scroll linear infinite;
+        }
+
+        /* Style for InfiniteMovingCards scroller gap */
+        .scroller ul {
+          gap: 1rem; /* Match gap in keyframe calc */
+        }
+
+        /* Style for the background gradient animation placeholder */
+        .background-gradient-animation {
+            background: linear-gradient(to bottom right, #3b82f6, #2dd4bf, #a855f7); /* bg-gradient-to-br from-blue-500 via-teal-400 to-purple-600 */
+            padding: 1px; /* Simulate border */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .background-gradient-animation > div {
+             border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        /* Background Beams Placeholder */
+        .background-beams::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse at center, rgba(100, 180, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Text Generate Effect Placeholder (Simple Fade-in) */
+        .text-generate-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUp 0.5s ease-out forwards;
+            margin-right: 0.5rem; /* space-x-2 equivalent */
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sticky Scroll Feature Text Styling */
+        .feature-text-item {
+            transition: opacity 0.4s ease-in-out;
+            opacity: 0.3; /* Start faded */
+        }
+        .feature-text-item.is-active {
+            opacity: 1; /* Highlight active */
+        }
+
+        /* Sticky Scroll Feature Image Styling */
+         .feature-image-item {
+             transition: opacity 0.5s ease-in-out;
+             opacity: 0;
+             z-index: 0;
+             position: absolute;
+             inset: 0;
+             width: 100%;
+             height: 100%;
+             object-fit: contain;
+             padding: 2rem; /* p-8 */
+         }
+         .feature-image-item.is-active {
+             opacity: 1;
+             z-index: 10;
+         }
+
+         /* Mobile Menu Open State */
+         body.mobile-menu-open {
+            overflow: hidden;
+         }
+         #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+         }
+         #mobile-menu.hidden {
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+         }
+
+         /* Ensure SVG icons in Bento grid don't shrink */
+         .bento-icon {
+            flex-shrink: 0;
+         }
+
+         /* Style for pulse animation (Network) */
+         @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+         #network-nodes circle { transform-origin: center center; }
+
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Main C Shape -->
-                    <path d="M70 20 L50 20 L30 40 L30 60 L50 80 L70 80" stroke="#00FF00" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <!-- 3D Shadow Effect -->
-                    <path d="M72 22 L52 22 L32 42 L32 62 L52 82 L72 82" stroke="#00CC00" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-                    <!-- Glow Accent -->
-                    <path d="M70 20 L50 20 L30 40 L30 60 L50 80 L70 80" stroke="#00FF00" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
-                </svg>
-                <span>Cortexea AI</span>
+<body class="antialiased">
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[65px] md:h-[70px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
+            <a href="#top" aria-label="Back to top" class="smooth-scroll">
+                <img id="logo" src="Cortexea _AI.png" alt="Cortexea Logo" class="h-10 md:h-12 w-auto" onerror="this.onerror=null; this.src='https://placehold.co/100x32/ffffff/adb5bd?text=Logo';"> </a>
+
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#features" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors smooth-scroll">Features</a>
+                <a href="#demo" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors smooth-scroll">Demo</a>
+                <a href="#integrations" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors smooth-scroll">Integrations</a>
+                <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                    <div class="absolute inset-0"> <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" style="animation: animate 1500ms linear infinite; background-size: 400% 400%;"></div> </div>
+                    <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium"> Request Early Access </div>
+                </button>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-600 hover:text-gray-800 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 block"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg>
+                    <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-            <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#usp">Why Us</a></li>
-                <li><a href="#industries">Industries</a></li>
-                <li><a href="#portfolio">Showcase</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg py-4 z-40 hidden">
+            <nav class="flex flex-col items-center space-y-4">
+                <a href="#features" class="text-base font-medium text-gray-700 hover:text-blue-600 smooth-scroll mobile-nav-link">Features</a>
+                <a href="#demo" class="text-base font-medium text-gray-700 hover:text-blue-600 smooth-scroll mobile-nav-link">Demo</a>
+                <a href="#integrations" class="text-base font-medium text-gray-700 hover:text-blue-600 smooth-scroll mobile-nav-link">Integrations</a>
+                 <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent mt-2">
+                     <div class="absolute inset-0"> <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" style="animation: animate 1500ms linear infinite; background-size: 400% 400%;"></div> </div>
+                     <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium"> Request Early Access </div>
+                 </button>
+            </nav>
+        </div>
     </header>
+
     <main>
-        <section id="hero">
-            <div class="hero_bg"></div>
-            <div class="hero-content">
-                <h1>Build and Deploy Dapps Effortlessly with AI Agents</h1>
-                <p>Describe your Dapp idea in plain English, and our AI agents will handle the entire process—from development to deployment across multiple blockchain platforms.</p>
-                <a href="#contact" class="cta-button">Get Started Now</a>
+        <section id="top" class="relative pt-24 pb-16 md:pt-36 md:pb-24 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen">
+            <div class="absolute inset-0 background-beams"></div>
+            <div class="w-full md:w-1/2 lg:w-3/5 text-center md:text-left mb-12 md:mb-0 z-10">
+                <p class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">AGENTIC WEB3 DEVELOPMENT</p>
+                <h1 id="text-generate-target" class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 mb-5 leading-tight" data-words="Build Decentralized Apps at the Speed of Thought"></h1>
+                <p class="text-base md:text-lg text-neutral-600 max-w-xl mx-auto md:mx-0 mb-8">
+                    Cortexea translates your ideas into secure, efficient, and production-ready dApps. Describe your vision in plain English; our AI agent handles the rest.
+                </p>
+                 <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                    <div class="absolute inset-0"> <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" style="animation: animate 1500ms linear infinite; background-size: 400% 400%;"></div> </div>
+                    <div class="relative bg-white text-black px-8 py-3 rounded-full text-base font-medium"> Join the Private Beta </div>
+                </button>
             </div>
-        </section>
-        <section id="services">
-            <h2>How It Works</h2>
-            <div class="services-grid">
-                <div class="card">
-                    <i class="fas fa-comment-alt"></i>
-                    <h3>Describe Your Idea</h3>
-                    <p>Input your Dapp concept in plain English.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-robot"></i>
-                    <h3>AI-Driven Development</h3>
-                    <p>Our AI agents generate the code and build your Dapp.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Testing and Quality Assurance</h3>
-                    <p>AI agents test your Dapp for functionality and security.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Multi-Chain Deployment</h3>
-                    <p>Deploy your Dapp on any supported blockchain platform.</p>
+            <div class="w-full md:w-1/2 lg:w-2/5 flex justify-center md:justify-end items-center z-10 mt-8 md:mt-0">
+                <div class="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] relative">
+                    <svg id="network-svg" viewBox="0 0 100 100" class="absolute inset-0 w-full h-full overflow-visible">
+                        <defs> <linearGradient id="lineGradientStatic" x1="0%" y1="0%" x2="100%" y2="0%"> <stop offset="0%" style="stop-color: rgba(0, 123, 255, 0.5); stop-opacity: 1;"></stop> <stop offset="100%" style="stop-color: rgba(32, 201, 151, 0.5); stop-opacity: 1;"></stop> </linearGradient> <filter id="nodeGlowStatic" x="-50%" y="-50%" width="200%" height="200%"> <feGaussianBlur stdDeviation="1" result="coloredBlur"></feGaussianBlur> <feMerge> <feMergeNode in="coloredBlur"></feMergeNode> <feMergeNode in="SourceGraphic"></feMergeNode> </feMerge> </filter> </defs>
+                         <g id="network-lines"></g> <g id="network-nodes"></g>
+                    </svg>
                 </div>
             </div>
         </section>
-        <section id="usp">
-            <h2>Why Choose Us?</h2>
-            <div class="usp-grid">
-                <div class="card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Efficiency</h3>
-                    <p>Our AI agents automate the development process, saving time and effort.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <h3>Speed</h3>
-                    <p>From idea to deployment in record time.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-dollar-sign"></i>
-                    <h3>Cost-Effectiveness</h3>
-                    <p>Reduce development costs with automated processes.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Quality</h3>
-                    <p>AI-driven testing ensures high-quality and secure Dapps.</p>
-                </div>
-            </div>
-        </section>
-        <section id="industries">
-            <h2>Supported Domains</h2>
-            <div class="industries-grid">
-                <div class="card">
-                    <i class="fas fa-money-bill-alt"></i>
-                    <h3>DeFI</h3>
-                    <p>Build decentralized finance applications with ease.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>Gaming</h3>
-                    <p>Create blockchain-based games and gaming platforms.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-users"></i>
-                    <h3>Social Platforms</h3>
-                    <p>Develop social media applications on the blockchain.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Any Vision</h3>
-                    <p>Describe any Dapp idea, and our AI agents will bring it to life.</p>
+
+        <section class="py-12 md:py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <h2 class="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-10 md:mb-12"> From Idea to Live dApp, Intelligently Automated </h2>
+                <div class="grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                        <img src="english_prompt_zoomed.jpg" alt="Describe Your Vision Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
+                        <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">1. Describe Your Vision</div> <div class="font-sans font-normal text-neutral-600 text-sm">Use natural language prompts to outline your dApp's functionality, features, and target blockchain.</div> </div>
+                    </div>
+                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                         <img src="codegen.png" alt="AI Generates Code Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
+                        <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-teal-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">2. AI Generates Code</div> <div class="font-sans font-normal text-neutral-600 text-sm">Cortexea's agent intelligently crafts smart contracts, frontend components, and backend logic.</div> </div>
+                    </div>
+                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                          <img src="security.jpg" alt="Test & Audit Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
+                         <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-purple-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">3. Test & Audit</div> <div class="font-sans font-normal text-neutral-600 text-sm">Automated security analysis, functional testing, and gas optimization ensure robustness.</div> </div>
+                     </div>
+                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                          <img src="multichain.png" alt="Deploy Seamlessly Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
+                         <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-orange-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.314.06a6 6 0 0 1-2.58 5.84m-3.286-2.581A14.92 14.92 0 0 1 2.25 12c0-1.712.316-3.334.89-4.803"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">4. Deploy Seamlessly</div> <div class="font-sans font-normal text-neutral-600 text-sm">Push your audited dApp directly to Ethereum, Solana, Polygon, and other supported chains.</div> </div>
+                     </div>
                 </div>
             </div>
         </section>
-        <section id="portfolio">
-            <h2>Imagine, Create, Deploy</h2>
-            <p>Explore some of the innovative Dapps built using our platform.</p>
-            <div class="portfolio-grid">
-                <div class="card">
-                    <img src="defi.webp" class="portfolio-image" alt="DeFI Dapp">
-                    <h3>TokenSwap - A DeFI Dapp</h3>
-                    <p>A decentralized token swapping platform built on Etherium.</p>
-                    <p><strong>Tags:</strong> DeFI, Etherium, Token Swapping</p>
+
+        <section id="features" class="relative">
+            <div id="sticky-container" class="relative h-[280vh] pt-12 md:pt-24">
+                 <div class="text-center mb-8 md:mb-12 px-4">
+                     <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">The Cortexea Advantage</h2>
+                    <p class="text-neutral-600 text-lg max-w-2xl mx-auto">Explore how Cortexea accelerates and secures your Web3 development workflow.</p>
                 </div>
-                <div class="card">
-                    <img src="gaming.webp" class="portfolio-image" alt="Gaming Dapp">
-                    <h3>Blockchain Battles - A Gaming Dapp</h3>
-                    <p>A multiplayer game where players can earn and trade NFTs.</p>
-                    <p><strong>Tags:</strong> Gaming, NFT, Solana</p>
-                </div>
-                <div class="card">
-                    <img src="social.webp" class="portfolio-image" alt="Social Dapp">
-                    <h3>DecentraSocial - A Social Dapp</h3>
-                    <p>A decentralized social media platform on Polygon.</p>
-                    <p><strong>Tags:</strong> Social, Polygon, Decentralized</p>
-                </div>
-                <div class="card">
-                    <img src="ai.webp" class="portfolio-image" alt="AI Dapp">
-                    <h3>SmartPredict - An AI Dapp</h3>
-                    <p>A prediction market Dapp powered by AI algorithms.</p>
-                    <p><strong>Tags:</strong> AI, Prediction Market, EVM</p>
+                <div class="sticky top-0 flex h-screen items-center overflow-hidden">
+                     <div class="relative flex items-start px-4 md:px-20 w-full gap-6 md:gap-10">
+                        <div id="feature-text-column" class="w-full md:w-1/2 pt-0 pb-12 md:pb-0">
+                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="0"> <h3 class="text-2xl font-bold text-black">AI-Powered Code Generation</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Go from prompt to functional, high-quality code for smart contracts and frontends in minutes. Experience efficiency like magic.</p> </div>
+                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="1"> <h3 class="text-2xl font-bold text-black">Fortress-Grade Security Built-In</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Automated vulnerability scanning, formal verification hints, and adherence to the latest security best practices protect your assets.</p> </div>
+                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="2"> <h3 class="text-2xl font-bold text-black">Multi-Chain Flexibility</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Deploy natively to EVM chains like Ethereum, Polygon, BSC, or Solana, Near, and more. Cortexea is ecosystem agnostic.</p> </div>
+                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="3"> <h3 class="text-2xl font-bold text-black">End-to-End Testing & Optimization</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Generate functional tests, simulate transactions, and optimize for gas efficiency automatically, ensuring reliability and cost-effectiveness.</p> </div>
+                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="4"> <h3 class="text-2xl font-bold text-black">Integrated Web3 Tools</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Access a built-in chain explorer, transaction builder, and contract interaction tools directly within your development environment.</p> </div>
+                        </div>
+                        <div class="hidden md:block w-1/2 sticky top-10 self-start">
+                            <div id="feature-image-container" class="relative h-[70vh] md:h-[80vh] rounded-md bg-gray-100 overflow-hidden shadow-lg">
+                                <img src="english_prompt.jpg" alt="AI-Powered Code Generation" class="feature-image-item" data-index="0" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+1+Visual';">
+                                <img src="security.jpg" alt="Fortress-Grade Security Built-In" class="feature-image-item" data-index="1" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+2+Visual';">
+                                <img src="multichain.png" alt="Multi-Chain Flexibility" class="feature-image-item" data-index="2" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+3+Visual';">
+                                <img src="testing.jpg" alt="End-to-End Testing & Optimization" class="feature-image-item" data-index="3" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+4+Visual';">
+                                <img src="integrated_tools.jpg" alt="Integrated Web3 Tools" class="feature-image-item" data-index="4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+5+Visual';">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Cortexea AI is the leading platform for AI-powered Dapp development. Our unique Agent as a Service offering allows you to describe your Dapp idea in plain English, and our specialized AI agents will handle the entire process from development to deployment, supporting multiple blockchain ecosystems.</p>
+
+        <section id="demo" class="py-12 md:py-24 bg-gray-50 text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">See Cortexea in Action</h2>
+                <p class="text-lg text-neutral-600 max-w-2xl mx-auto mb-8">
+                    Watch how Cortexea transforms a simple idea into a fully deployed decentralized application in minutes.
+                </p>
+                <div class="aspect-video max-w-3xl mx-auto bg-neutral-300 rounded-lg shadow-xl overflow-hidden">
+                    <div class="w-full h-full flex items-center justify-center text-neutral-500">
+                        [Your Demo Video Embed Here - e.g., &lt;iframe src="..."&gt;&lt;/iframe&gt;]
+                    </div>
+                    </div>
+            </div>
         </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>Ready to build your Dapp? Get in touch for a free trial.</p>
-            <form action="https://formspree.io/f/mzzebvvj" method="POST">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="company" placeholder="Company" required>
-                <textarea name="message" placeholder="Message" required></textarea>
-                <input type="hidden" name="_subject" value="New Contact Form Submission - Cortexea">
-                <button type="submit">Submit</button>
-            </form>
+
+        <section id="integrations" class="py-12 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8">
+                    Supporting Leading Web3 Ecosystems
+                </h3>
+                <div id="infinite-moving-cards" class="scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"
+                     data-direction="right" data-speed="slow" data-pauseOnHover="true">
+                    <ul class="flex min-w-full shrink-0 py-4 w-max flex-nowrap">
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="near-protocol-near-logo.png" alt="Near Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Near';"/> </li>
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="solana-sol-logo.png" alt="Solana Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Solana';"/> </li>
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="ethereum-eth-logo-diamond-purple.png" alt="Ethereum Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Ethereum';"/> </li>
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="optimism-ethereum-op-logo.png" alt="Optimism Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Optimism';"/> </li>
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="arbitrum-arb-logo.png" alt="Arbitrum Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Arbitrum';"/> </li>
+                        <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="polygon-matic-logo.png" alt="Polygon Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Polygon';"/> </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 md:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="background-gradient-animation">
+                     <div class="relative z-10 text-center p-6 md:p-12 bg-gradient-to-br from-blue-500/90 via-teal-400/90 to-purple-600/90">
+                         <h2 class="text-2xl md:text-4xl font-bold text-white mb-4"> Ready to Build the Future of Web3? </h2>
+                        <p class="text-base md:text-lg text-indigo-100 max-w-xl mx-auto mb-8"> Join our early access program and be among the first to experience agentic development with Cortexea. </p>
+                         <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                             <div class="absolute inset-0"> <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#ffffff,transparent),radial-gradient(circle_farthest-side_at_100%_0,#ffffff,transparent)]" style="animation: animate 1500ms linear infinite; background-size: 400% 400%;"></div> </div>
+                              <div class="relative bg-white text-blue-600 px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-medium"> Request Early Access Now </div>
+                         </button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-    <footer>
-        <p>For any queries reach out at info@cortexea.com </p>
-        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        <div class="social-links">
-            <a href="#">LinkedIn</a>
-            <a href="#">Twitter</a>
-            <a href="#">Facebook</a>
-        </div>
+
+    <footer class="py-8 border-t border-gray-200 mt-12 md:mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <img src="Cortexea _AI.png" alt="Cortexea Logo Small" class="h-8 w-auto mx-auto mb-4" onerror="this.onerror=null; this.src='https://placehold.co/80x24/ffffff/adb5bd?text=Logo';"/>
+            <p id="footer-year" class="mb-4"> </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                <a href="/privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="/terms" class="hover:text-blue-600 transition-colors">Terms of Service</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="/contact" class="hover:text-blue-600 transition-colors">Contact</a>
+            </div>
+             <div class="flex justify-center items-center space-x-4">
+                 <a href="https://x.com/cortexeaai" aria-label="Visit our X profile" class="text-gray-500 hover:text-blue-600 transition-colors">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                     </svg>
+                 </a>
+                 </div>
+             </div>
     </footer>
-    <button id="scroll-to-top"><i class="fas fa-arrow-up"></i></button>
-    <script src="script.js"></script>
-    <script>
-        document.querySelector('#contact form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this),
-                headers: { 'Accept': 'application/json' }
-            })
-            .then(response => {
-                if (response.ok) {
-                    this.reset(); // Clear the form
-                    alert('Message sent! We’ll get back to you soon.');
-                } else {
-                    alert('Oops! Something went wrong. Try again.');
+
+    <div id="form-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 w-full max-w-md relative transform scale-95 transition-transform duration-300">
+            <button data-modal-close="form-modal" aria-label="Close modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <h3 class="text-xl md:text-2xl font-semibold text-neutral-800 mb-4">Request Early Access</h3>
+            <p class="text-neutral-600 text-sm mb-6">Enter your details below to join the private beta waitlist.</p>
+
+            
+            <form action="https://formspree.io/f/mzzebvvj" method="POST" class="space-y-4">
+                
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" name="name" id="name" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                           placeholder="Your Name">
+                </div>
+
+               
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" name="email" id="email" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                           placeholder="you@example.com">
+                </div>
+
+                
+                 <div>
+                     <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                     <input type="text" name="company" id="company" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                            placeholder="Your Company">
+                 </div>
+
+                
+                 <div>
+                     <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                     <textarea name="message" id="message" rows="3" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                               placeholder="Tell us a bit about your project or interest..."></textarea>
+                 </div>
+
+                
+                <input type="text" name="_gotcha" style="display:none">
+                <input type="hidden" name="_subject" value="New Contact Form Submission - Cortexea">
+
+                
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Join Waitlist
+                </button>
+            </form>
+            
+             <p class="text-xs text-gray-500 mt-4 text-center">We respect your privacy.</p>
+        </div>
+    </div>
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+            const headerHeight = header ? header.offsetHeight : 70;
+            document.documentElement.style.scrollPaddingTop = headerHeight + 'px';
+
+            const handleScrollHeader = () => { /* Header background logic */
+                if (window.scrollY > 10) { header.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-sm'); header.classList.remove('bg-transparent'); }
+                else { header.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-sm'); header.classList.add('bg-transparent'); }
+            };
+            window.addEventListener('scroll', handleScrollHeader, { passive: true });
+            handleScrollHeader();
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button'); /* Mobile menu logic */
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const openMobileMenu = () => { mobileMenu.classList.remove('hidden'); hamburgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden'); mobileMenuButton.setAttribute('aria-expanded', 'true'); document.body.classList.add('mobile-menu-open'); };
+            const closeMobileMenu = () => { mobileMenu.classList.add('hidden'); hamburgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); mobileMenuButton.setAttribute('aria-expanded', 'false'); document.body.classList.remove('mobile-menu-open'); };
+            mobileMenuButton.addEventListener('click', () => { mobileMenuButton.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu(); });
+
+            document.querySelectorAll('a.smooth-scroll').forEach(anchor => { /* Smooth scroll logic */
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#' || targetId === '#top') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+                    else { const targetElement = document.querySelector(targetId); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }
+                    if (document.body.classList.contains('mobile-menu-open')) closeMobileMenu();
+                });
+            });
+
+            const textGenerateTarget = document.getElementById('text-generate-target'); /* Text generate effect */
+            if (textGenerateTarget) {
+                const words = textGenerateTarget.getAttribute('data-words').split(' ');
+                textGenerateTarget.innerHTML = '';
+                words.forEach((word, index) => { const span = document.createElement('span'); span.textContent = word; span.className = 'text-generate-word'; span.style.animationDelay = `${index * 0.1}s`; textGenerateTarget.appendChild(span); });
+            }
+
+            // --- Sticky Scroll Reveal (Reverted to IntersectionObserver version) ---
+            const stickyContainer = document.getElementById('sticky-container');
+            const textItems = document.querySelectorAll('.feature-text-item');
+            const imageItems = document.querySelectorAll('.feature-image-item');
+            let currentActiveIndex = 0; // Start with 0 as active
+
+            if (stickyContainer && textItems.length > 0 && imageItems.length > 0) {
+                const observerOptions = {
+                    root: null, // Use viewport
+                    rootMargin: '-48% 0px -48% 0px', // Trigger when element is centered vertically
+                    threshold: 0 // Trigger as soon as it enters/leaves margin
+                };
+
+                const observerCallback = (entries) => {
+                    let bestCandidate = null; // Track the 'most centered' intersecting element
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (bestCandidate === null || entry.boundingClientRect.top < bestCandidate.boundingClientRect.top) {
+                                bestCandidate = entry;
+                            }
+                        }
+                    });
+                    if (bestCandidate) {
+                         const index = parseInt(bestCandidate.target.getAttribute('data-index'), 10);
+                         if (index !== currentActiveIndex) {
+                             if (textItems[currentActiveIndex]) textItems[currentActiveIndex].classList.remove('is-active');
+                             if (imageItems[currentActiveIndex]) imageItems[currentActiveIndex].classList.remove('is-active');
+                             bestCandidate.target.classList.add('is-active');
+                             if (imageItems[index]) imageItems[index].classList.add('is-active');
+                             currentActiveIndex = index;
+                         }
+                    }
+                };
+                const observer = new IntersectionObserver(observerCallback, observerOptions);
+                textItems.forEach(item => observer.observe(item));
+
+                // Initial State
+                textItems.forEach((item, i) => item.classList.toggle('is-active', i === 0));
+                imageItems.forEach((img, i) => img.classList.toggle('is-active', i === 0));
+                currentActiveIndex = 0;
+            }
+
+
+            // --- Infinite Moving Cards ---
+            const scroller = document.getElementById('infinite-moving-cards'); /* Infinite scroll logic */
+            if (scroller) {
+                const scrollerInner = scroller.querySelector('ul');
+                if (scrollerInner) {
+                    const scrollerContent = Array.from(scrollerInner.children);
+                    if (scrollerContent.length > 0 && scrollerInner.children.length === scrollerContent.length) { // Check if not already duplicated
+                        scrollerContent.forEach(item => { const duplicatedItem = item.cloneNode(true); duplicatedItem.setAttribute('aria-hidden', true); scrollerInner.appendChild(duplicatedItem); });
+                        const direction = scroller.getAttribute('data-direction') || 'left'; const speed = scroller.getAttribute('data-speed') || 'fast'; const pauseOnHover = scroller.getAttribute('data-pauseOnHover') === 'true';
+                        const duration = speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s"; const animationDirection = direction === "left" ? "forwards" : "reverse";
+                        scrollerInner.style.setProperty('--animation-duration', duration); scrollerInner.style.setProperty('--animation-direction', animationDirection); scrollerInner.classList.add('animate-scroll');
+                        if (pauseOnHover) { scroller.addEventListener('mouseenter', () => { if (scrollerInner) scrollerInner.style.animationPlayState = 'paused'; }); scroller.addEventListener('mouseleave', () => { if (scrollerInner) scrollerInner.style.animationPlayState = 'running'; }); }
+                    }
                 }
-            })
-            .catch(() => alert('Error! Please try again later.'));
-        });
+            }
+
+             // --- Network Animation ---
+             const svg = document.getElementById('network-svg'); /* Network animation logic */
+             const linesGroup = document.getElementById('network-lines'); const nodesGroup = document.getElementById('network-nodes');
+             if (svg && linesGroup && nodesGroup) {
+                 const numNodes = 25; const nodesData = Array.from({ length: numNodes }).map(() => ({ x: Math.random() * 100, y: Math.random() * 100, radius: Math.random() * 1.5 + 1 }));
+                 for (let i = 0; i < numNodes; i++) { const connections = Math.floor(Math.random() * 2) + 1; for (let j = 0; j < connections; j++) { const targetIndex = Math.floor(Math.random() * numNodes); if (targetIndex !== i) { const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', nodesData[i].x); line.setAttribute('y1', nodesData[i].y); line.setAttribute('x2', nodesData[targetIndex].x); line.setAttribute('y2', nodesData[targetIndex].y); line.setAttribute('stroke', 'url(#lineGradientStatic)'); line.setAttribute('stroke-width', '0.2'); line.style.opacity = 0.6; linesGroup.appendChild(line); } } }
+                 nodesData.forEach((node) => { const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); circle.setAttribute('cx', node.x); circle.setAttribute('cy', node.y); circle.setAttribute('r', node.radius); circle.setAttribute('fill', 'rgba(0, 123, 255, 0.7)'); circle.setAttribute('filter', 'url(#nodeGlowStatic)'); circle.style.animation = `pulse ${2 + Math.random() * 3}s ease-in-out ${Math.random() * 1}s infinite alternate`; nodesGroup.appendChild(circle); });
+                 if (!document.getElementById('pulse-animation-style')) { const styleSheet = document.createElement("style"); styleSheet.id = 'pulse-animation-style'; styleSheet.innerText = `@keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } } svg circle { transform-origin: center center; }`; document.head.appendChild(styleSheet); }
+             }
+
+            const yearElement = document.getElementById('footer-year'); /* Footer year logic */
+            if (yearElement) { yearElement.textContent = `© ${new Date().getFullYear()} Cortexea. All rights reserved.`; }
+
+            // --- Form Modal Logic ---
+            const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
+            const modalClosers = document.querySelectorAll('[data-modal-close]');
+
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const modalId = trigger.getAttribute('data-modal-trigger');
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        requestAnimationFrame(() => { modal.classList.add('opacity-100'); modal.querySelector(':scope > div').classList.add('scale-100'); modal.querySelector(':scope > div').classList.remove('scale-95'); });
+                         const firstInput = modal.querySelector('input:not([type="hidden"]), textarea, select');
+                         if (firstInput) { firstInput.focus(); }
+                    }
+                });
+            });
+
+            modalClosers.forEach(closer => {
+                closer.addEventListener('click', () => {
+                    const modal = closer.closest('.fixed.inset-0');
+                    if (modal) {
+                        modal.classList.remove('opacity-100'); modal.querySelector(':scope > div').classList.remove('scale-100'); modal.querySelector(':scope > div').classList.add('scale-95');
+                        setTimeout(() => { modal.classList.add('hidden'); }, 300);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.fixed.inset-0[id$="-modal"]').forEach(modal => {
+                 modal.addEventListener('click', (event) => {
+                    if (event.target === modal) { const closeButton = modal.querySelector('[data-modal-close]'); if (closeButton) { closeButton.click(); } }
+                 });
+            });
+
+        }); // End DOMContentLoaded
     </script>
+
 </body>
 </html>
