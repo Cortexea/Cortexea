@@ -89,6 +89,17 @@
             }
         }
 
+        /* Feature Card Scroll Animation */
+        .feature-card-animate {
+            opacity: 0;
+            transform: translateY(30px); /* Start slightly lower */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .feature-card-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
          /* Mobile Menu Open State */
          body.mobile-menu-open {
             overflow: hidden;
@@ -158,7 +169,7 @@
                 <p class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">AGENTIC WEB3 DEVELOPMENT</p>
                 <h1 id="text-generate-target" class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 mb-5 leading-tight" data-words="Build Decentralized Apps at the Speed of Thought"></h1>
                 <p class="text-base md:text-lg text-neutral-600 max-w-xl mx-auto md:mx-0 mb-8">
-                    Cortexea translates your ideas into secure, efficient, and production-ready dApps. Describe your vision in plain English; our AI agent handles the rest.
+                    Cortexea translates your ideas into secure, efficient, and production-ready dApps with AI. Describe your vision in plain English to unlock innovation across leading Web3 ecosystems.
                 </p>
                  <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
                     <div class="absolute inset-0"> <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" style="animation: animate 1500ms linear infinite; background-size: 400% 400%;"></div> </div>
@@ -179,21 +190,21 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                  <h2 class="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-10 md:mb-12"> From Idea to Live dApp, Intelligently Automated </h2>
                 <div class="grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-2xl hover:scale-105 transition duration-300 ease-in-out shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
                         <img src="english_prompt_zoomed.jpg" alt="Describe Your Vision Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
-                        <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">1. Describe Your Vision</div> <div class="font-sans font-normal text-neutral-600 text-sm">Use natural language prompts to outline your dApp's functionality, features, and target blockchain.</div> </div>
+                        <div class="group-hover/bento:translate-x-2 transition duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">1. Describe Your Vision</div> <div class="font-sans font-normal text-neutral-600 text-sm">Simply describe your dApp in plain English – its features, purpose, and preferred blockchain. Cortexea understands.</div> </div>
                     </div>
-                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-2xl hover:scale-105 transition duration-300 ease-in-out shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
                          <img src="codegen.png" alt="AI Generates Code Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
-                        <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-teal-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">2. AI Generates Code</div> <div class="font-sans font-normal text-neutral-600 text-sm">Cortexea's agent intelligently crafts smart contracts, frontend components, and backend logic.</div> </div>
+                        <div class="group-hover/bento:translate-x-2 transition duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-teal-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">2. AI Generates Code</div> <div class="font-sans font-normal text-neutral-600 text-sm">Watch as Cortexea's AI engineer instantly generates your smart contracts, UI components, and necessary backend logic.</div> </div>
                     </div>
-                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                    <div class="md:col-span-1 row-span-1 rounded-xl group/bento hover:shadow-2xl hover:scale-105 transition duration-300 ease-in-out shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
                           <img src="security.jpg" alt="Test & Audit Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
-                         <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-purple-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">3. Test & Audit</div> <div class="font-sans font-normal text-neutral-600 text-sm">Automated security analysis, functional testing, and gas optimization ensure robustness.</div> </div>
+                         <div class="group-hover/bento:translate-x-2 transition duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-purple-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">3. Test & Audit</div> <div class="font-sans font-normal text-neutral-600 text-sm">Deploy with confidence. Cortexea automatically tests, audits for security, and optimizes your dApp for performance.</div> </div>
                      </div>
-                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
+                    <div class="md:col-span-2 row-span-1 rounded-xl group/bento hover:shadow-2xl hover:scale-105 transition duration-300 ease-in-out shadow-input p-4 bg-white border border-gray-200 justify-between flex flex-col space-y-4">
                           <img src="multichain.png" alt="Deploy Seamlessly Visual" class="w-full h-full object-cover rounded-xl min-h-[6rem]">
-                         <div class="group-hover/bento:translate-x-2 transition duration-200"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-orange-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.314.06a6 6 0 0 1-2.58 5.84m-3.286-2.581A14.92 14.92 0 0 1 2.25 12c0-1.712.316-3.334.89-4.803"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">4. Deploy Seamlessly</div> <div class="font-sans font-normal text-neutral-600 text-sm">Push your audited dApp directly to Ethereum, Solana, Polygon, and other supported chains.</div> </div>
+                         <div class="group-hover/bento:translate-x-2 transition duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-orange-600 bento-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.314.06a6 6 0 0 1-2.58 5.84m-3.286-2.581A14.92 14.92 0 0 1 2.25 12c0-1.712.316-3.334.89-4.803"></path></svg> <div class="font-sans font-bold text-neutral-800 mb-2 mt-2">4. Deploy Seamlessly</div> <div class="font-sans font-normal text-neutral-600 text-sm">Launch on your chosen chain. Cortexea supports seamless deployment to Ethereum, Solana, Polygon, and a growing list of ecosystems.</div> </div>
                      </div>
                 </div>
             </div>
@@ -207,9 +218,9 @@
                 </div>
                 <div class="space-y-12 md:space-y-16">
                     <!-- Feature 1 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
-                        <div class="md:w-1/2">
-                            <img src="english_prompt.jpg" alt="AI-Powered Code Generation" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+1+Visual';">
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50 feature-card-animate group">
+                        <div class="md:w-1/2 overflow-hidden rounded-lg">
+                            <img src="english_prompt.jpg" alt="AI-Powered Code Generation" class="shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px] transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+1+Visual';">
                         </div>
                         <div class="md:w-1/2">
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">AI-Powered Code Generation</h3>
@@ -217,9 +228,9 @@
                         </div>
                     </div>
                     <!-- Feature 2 -->
-                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
-                        <div class="md:w-1/2">
-                            <img src="security.jpg" alt="Fortress-Grade Security Built-In" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+2+Visual';">
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50 feature-card-animate group">
+                        <div class="md:w-1/2 overflow-hidden rounded-lg">
+                            <img src="security.jpg" alt="Fortress-Grade Security Built-In" class="shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px] transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+2+Visual';">
                         </div>
                         <div class="md:w-1/2">
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">Fortress-Grade Security Built-In</h3>
@@ -227,9 +238,9 @@
                         </div>
                     </div>
                     <!-- Feature 3 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
-                        <div class="md:w-1/2">
-                            <img src="multichain.png" alt="Multi-Chain Flexibility" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+3+Visual';">
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50 feature-card-animate group">
+                        <div class="md:w-1/2 overflow-hidden rounded-lg">
+                            <img src="multichain.png" alt="Multi-Chain Flexibility" class="shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px] transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+3+Visual';">
                         </div>
                         <div class="md:w-1/2">
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">Multi-Chain Flexibility</h3>
@@ -237,9 +248,9 @@
                         </div>
                     </div>
                     <!-- Feature 4 -->
-                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
-                        <div class="md:w-1/2">
-                            <img src="testing.jpg" alt="End-to-End Testing & Optimization" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+4+Visual';">
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50 feature-card-animate group">
+                        <div class="md:w-1/2 overflow-hidden rounded-lg">
+                            <img src="testing.jpg" alt="End-to-End Testing & Optimization" class="shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px] transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+4+Visual';">
                         </div>
                         <div class="md:w-1/2">
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">End-to-End Testing & Optimization</h3>
@@ -247,9 +258,9 @@
                         </div>
                     </div>
                     <!-- Feature 5 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
-                        <div class="md:w-1/2">
-                            <img src="integrated_tools.jpg" alt="Integrated Web3 Tools" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+5+Visual';">
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50 feature-card-animate group">
+                        <div class="md:w-1/2 overflow-hidden rounded-lg">
+                            <img src="integrated_tools.jpg" alt="Integrated Web3 Tools" class="shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px] transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+5+Visual';">
                         </div>
                         <div class="md:w-1/2">
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">Integrated Web3 Tools</h3>
@@ -276,9 +287,10 @@
 
         <section id="integrations" class="py-12 md:py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8">
+                <h3 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     Supporting Leading Web3 Ecosystems
                 </h3>
+                <p class="text-center text-lg text-neutral-600 mt-2 mb-10 max-w-3xl mx-auto">Cortexea enables builders to deploy innovative dApps across a diverse range of platforms, fostering a vibrant, interconnected Web3.</p>
                 <div id="infinite-moving-cards" class="scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent_2%,white_10%,white_90%,transparent_98%)]"
                      data-direction="right" data-speed="slow" data-pauseOnHover="true">
                     <ul class="flex min-w-full shrink-0 py-4 w-max flex-nowrap">
@@ -425,6 +437,26 @@
                 const words = textGenerateTarget.getAttribute('data-words').split(' ');
                 textGenerateTarget.innerHTML = '';
                 words.forEach((word, index) => { const span = document.createElement('span'); span.textContent = word; span.className = 'text-generate-word'; span.style.animationDelay = `${index * 0.1}s`; textGenerateTarget.appendChild(span); });
+            }
+
+            // --- Feature Card Scroll Animation ---
+            const animatedCards = document.querySelectorAll('.feature-card-animate');
+            if (animatedCards.length > 0) {
+                const cardObserverOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.2 // Trigger when 20% of the card is visible
+                };
+                const cardObserverCallback = (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); // Optional: Stop observing once animated
+                        }
+                    });
+                };
+                const cardObserver = new IntersectionObserver(cardObserverCallback, cardObserverOptions);
+                animatedCards.forEach(card => cardObserver.observe(card));
             }
 
             // --- Infinite Moving Cards ---
