@@ -114,6 +114,32 @@
             50% { transform: scale(1.08); opacity: 0.9; }
         }
 
+        .shadow-custom-3d {
+            box-shadow: 
+                0px 2px 4px rgba(0,0,0,0.06),
+                0px 5px 15px rgba(0,0,0,0.1),
+                0px 10px 25px rgba(0,0,0,0.1);
+        }
+        .shadow-custom-3d-hover:hover {
+             box-shadow: 
+                0px 4px 8px rgba(0,0,0,0.08),
+                0px 10px 25px rgba(0,0,0,0.15),
+                0px 15px 35px rgba(0,0,0,0.15);
+             transform: translateY(-2px);
+        }
+
+        .nav-logo-text {
+            color: #1f2937; /* Tailwind's neutral-800 */
+        }
+        .group:hover .nav-logo-text {
+            background: linear-gradient(to right, #00ccb1, #7b61ff, #ffc414, #1ca0fb, #00ccb1); /* Gradient from buttons */
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: animate 2.5s linear infinite; /* Re-use existing 'animate' keyframes */
+        }
+
          /* Mobile Menu Open State */
          body.mobile-menu-open {
             overflow: hidden;
@@ -144,7 +170,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
             <a href="#top" aria-label="Back to top" class="smooth-scroll flex items-center group">
                 <img id="logo" src="cortexea.svg" alt="Cortexea Logo" class="h-12 md:h-16 w-auto mr-2 sm:mr-3 transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/100x32/ffffff/adb5bd?text=Logo';"> 
-                <span class="text-xl sm:text-2xl font-bold text-neutral-800 group-hover:text-blue-600 transition-colors duration-300">Cortexea AI</span>
+                <span class="text-xl sm:text-2xl font-bold nav-logo-text">Cortexea AI</span>
             </a>
 
             <nav class="hidden md:flex items-center space-x-6">
@@ -367,7 +393,7 @@
 
         <section class="py-12 md:py-24">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-12 text-center">
+                <div class="bg-white rounded-xl p-6 md:p-12 text-center border border-gray-200 shadow-custom-3d shadow-custom-3d-hover transition-all duration-300">
                      <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4"> Ready to Build the Future of Web3? </h2>
                     <p class="text-base md:text-lg text-neutral-700 max-w-xl mx-auto mb-8"> Join our early access program and be among the first to experience agentic development with Cortexea. </p>
                      <button data-modal-trigger="form-modal" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
