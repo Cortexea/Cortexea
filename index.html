@@ -41,8 +41,7 @@
 
         /* Class using the scroll keyframes */
         .animate-scroll {
-           /* Dynamically set duration and direction via JS */
-           animation: scroll linear infinite;
+           animation: scroll var(--animation-duration, 40s) linear infinite var(--animation-direction, forwards);
         }
 
         /* Style for InfiniteMovingCards scroller gap */
@@ -89,32 +88,6 @@
                 transform: translateY(0);
             }
         }
-
-        /* Sticky Scroll Feature Text Styling */
-        .feature-text-item {
-            transition: opacity 0.4s ease-in-out;
-            opacity: 0.3; /* Start faded */
-        }
-        .feature-text-item.is-active {
-            opacity: 1; /* Highlight active */
-        }
-
-        /* Sticky Scroll Feature Image Styling */
-         .feature-image-item {
-             transition: opacity 0.5s ease-in-out;
-             opacity: 0;
-             z-index: 0;
-             position: absolute;
-             inset: 0;
-             width: 100%;
-             height: 100%;
-             object-fit: contain;
-             padding: 2rem; /* p-8 */
-         }
-         .feature-image-item.is-active {
-             opacity: 1;
-             z-index: 10;
-         }
 
          /* Mobile Menu Open State */
          body.mobile-menu-open {
@@ -226,29 +199,61 @@
             </div>
         </section>
 
-        <section id="features" class="relative">
-            <div id="sticky-container" class="relative h-[280vh] pt-12 md:pt-24">
-                 <div class="text-center mb-8 md:mb-12 px-4">
-                     <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">The Cortexea Advantage</h2>
+        <section id="features" class="py-12 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">The Cortexea Advantage</h2>
                     <p class="text-neutral-600 text-lg max-w-2xl mx-auto">Explore how Cortexea accelerates and secures your Web3 development workflow.</p>
                 </div>
-                <div class="sticky top-0 flex h-screen items-center overflow-hidden">
-                     <div class="relative flex items-start px-4 md:px-20 w-full gap-6 md:gap-10">
-                        <div id="feature-text-column" class="w-full md:w-1/2 pt-0 pb-12 md:pb-0">
-                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="0"> <h3 class="text-2xl font-bold text-black">AI-Powered Code Generation</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Go from prompt to functional, high-quality code for smart contracts and frontends in minutes. Experience efficiency like magic.</p> </div>
-                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="1"> <h3 class="text-2xl font-bold text-black">Fortress-Grade Security Built-In</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Automated vulnerability scanning, formal verification hints, and adherence to the latest security best practices protect your assets.</p> </div>
-                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="2"> <h3 class="text-2xl font-bold text-black">Multi-Chain Flexibility</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Deploy natively to EVM chains like Ethereum, Polygon, BSC, or Solana, Near, and more. Cortexea is ecosystem agnostic.</p> </div>
-                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="3"> <h3 class="text-2xl font-bold text-black">End-to-End Testing & Optimization</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Generate functional tests, simulate transactions, and optimize for gas efficiency automatically, ensuring reliability and cost-effectiveness.</p> </div>
-                            <div class="feature-text-item my-8 sm:my-12 md:my-16" data-index="4"> <h3 class="text-2xl font-bold text-black">Integrated Web3 Tools</h3> <p class="text-base sm:text-lg text-neutral-600 mt-2 md:mt-4">Access a built-in chain explorer, transaction builder, and contract interaction tools directly within your development environment.</p> </div>
+                <div class="space-y-12 md:space-y-16">
+                    <!-- Feature 1 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
+                        <div class="md:w-1/2">
+                            <img src="english_prompt.jpg" alt="AI-Powered Code Generation" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+1+Visual';">
                         </div>
-                        <div class="hidden md:block w-1/2 sticky top-10 self-start">
-                            <div id="feature-image-container" class="relative h-[70vh] md:h-[80vh] rounded-md bg-gray-100 overflow-hidden shadow-lg">
-                                <img src="english_prompt.jpg" alt="AI-Powered Code Generation" class="feature-image-item" data-index="0" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+1+Visual';">
-                                <img src="security.jpg" alt="Fortress-Grade Security Built-In" class="feature-image-item" data-index="1" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+2+Visual';">
-                                <img src="multichain.png" alt="Multi-Chain Flexibility" class="feature-image-item" data-index="2" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+3+Visual';">
-                                <img src="testing.jpg" alt="End-to-End Testing & Optimization" class="feature-image-item" data-index="3" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+4+Visual';">
-                                <img src="integrated_tools.jpg" alt="Integrated Web3 Tools" class="feature-image-item" data-index="4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+5+Visual';">
-                            </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-bold text-neutral-800 mb-3">AI-Powered Code Generation</h3>
+                            <p class="text-base sm:text-lg text-neutral-600">Go from prompt to functional, high-quality code for smart contracts and frontends in minutes. Experience efficiency like magic.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
+                        <div class="md:w-1/2">
+                            <img src="security.jpg" alt="Fortress-Grade Security Built-In" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+2+Visual';">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-bold text-neutral-800 mb-3">Fortress-Grade Security Built-In</h3>
+                            <p class="text-base sm:text-lg text-neutral-600">Automated vulnerability scanning, formal verification hints, and adherence to the latest security best practices protect your assets.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
+                        <div class="md:w-1/2">
+                            <img src="multichain.png" alt="Multi-Chain Flexibility" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+3+Visual';">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-bold text-neutral-800 mb-3">Multi-Chain Flexibility</h3>
+                            <p class="text-base sm:text-lg text-neutral-600">Deploy natively to EVM chains like Ethereum, Polygon, BSC, or Solana, Near, and more. Cortexea is ecosystem agnostic.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
+                        <div class="md:w-1/2">
+                            <img src="testing.jpg" alt="End-to-End Testing & Optimization" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+4+Visual';">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-bold text-neutral-800 mb-3">End-to-End Testing & Optimization</h3>
+                            <p class="text-base sm:text-lg text-neutral-600">Generate functional tests, simulate transactions, and optimize for gas efficiency automatically, ensuring reliability and cost-effectiveness.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 5 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 bg-gray-50">
+                        <div class="md:w-1/2">
+                            <img src="integrated_tools.jpg" alt="Integrated Web3 Tools" class="rounded-lg shadow-md w-full h-auto object-contain max-h-[300px] md:max-h-[400px]" onerror="this.onerror=null; this.src='https://placehold.co/600x400/e2e8f0/adb5bd?text=Feature+5+Visual';">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-bold text-neutral-800 mb-3">Integrated Web3 Tools</h3>
+                            <p class="text-base sm:text-lg text-neutral-600">Access a built-in chain explorer, transaction builder, and contract interaction tools directly within your development environment.</p>
                         </div>
                     </div>
                 </div>
@@ -263,7 +268,7 @@
                 </p>
                 <div class="aspect-video max-w-3xl mx-auto bg-neutral-300 rounded-lg shadow-xl overflow-hidden">
                     <div class="w-full h-full flex items-center justify-center text-neutral-500">
-                        Coming Soon!
+                        Coming Soon!    
                     </div>
                     </div>
             </div>
@@ -274,7 +279,7 @@
                 <h3 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8">
                     Supporting Leading Web3 Ecosystems
                 </h3>
-                <div id="infinite-moving-cards" class="scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"
+                <div id="infinite-moving-cards" class="scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent_2%,white_10%,white_90%,transparent_98%)]"
                      data-direction="right" data-speed="slow" data-pauseOnHover="true">
                     <ul class="flex min-w-full shrink-0 py-4 w-max flex-nowrap">
                         <li class="w-[150px] max-w-full relative rounded-lg border border-gray-200 p-5 md:w-[200px] bg-white flex-shrink-0 flex items-center justify-center"> <img src="near-protocol-near-logo.png" alt="Near Logo" class="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.src='https://placehold.co/120x40/ffffff/adb5bd?text=Near';"/> </li>
@@ -421,49 +426,6 @@
                 textGenerateTarget.innerHTML = '';
                 words.forEach((word, index) => { const span = document.createElement('span'); span.textContent = word; span.className = 'text-generate-word'; span.style.animationDelay = `${index * 0.1}s`; textGenerateTarget.appendChild(span); });
             }
-
-            // --- Sticky Scroll Reveal (Reverted to IntersectionObserver version) ---
-            const stickyContainer = document.getElementById('sticky-container');
-            const textItems = document.querySelectorAll('.feature-text-item');
-            const imageItems = document.querySelectorAll('.feature-image-item');
-            let currentActiveIndex = 0; // Start with 0 as active
-
-            if (stickyContainer && textItems.length > 0 && imageItems.length > 0) {
-                const observerOptions = {
-                    root: null, // Use viewport
-                    rootMargin: '-48% 0px -48% 0px', // Trigger when element is centered vertically
-                    threshold: 0 // Trigger as soon as it enters/leaves margin
-                };
-
-                const observerCallback = (entries) => {
-                    let bestCandidate = null; // Track the 'most centered' intersecting element
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (bestCandidate === null || entry.boundingClientRect.top < bestCandidate.boundingClientRect.top) {
-                                bestCandidate = entry;
-                            }
-                        }
-                    });
-                    if (bestCandidate) {
-                         const index = parseInt(bestCandidate.target.getAttribute('data-index'), 10);
-                         if (index !== currentActiveIndex) {
-                             if (textItems[currentActiveIndex]) textItems[currentActiveIndex].classList.remove('is-active');
-                             if (imageItems[currentActiveIndex]) imageItems[currentActiveIndex].classList.remove('is-active');
-                             bestCandidate.target.classList.add('is-active');
-                             if (imageItems[index]) imageItems[index].classList.add('is-active');
-                             currentActiveIndex = index;
-                         }
-                    }
-                };
-                const observer = new IntersectionObserver(observerCallback, observerOptions);
-                textItems.forEach(item => observer.observe(item));
-
-                // Initial State
-                textItems.forEach((item, i) => item.classList.toggle('is-active', i === 0));
-                imageItems.forEach((img, i) => img.classList.toggle('is-active', i === 0));
-                currentActiveIndex = 0;
-            }
-
 
             // --- Infinite Moving Cards ---
             const scroller = document.getElementById('infinite-moving-cards'); /* Infinite scroll logic */
