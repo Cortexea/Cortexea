@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortexea Web3 Innovators University Ideathon - Cortexea</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles & Keyframes (Copied from index.html & Ideathon specific) */
+        html {
+             scroll-behavior: smooth;
+             scroll-padding-top: 70px; 
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: #1f2937; 
+            overflow-x: hidden;
+        }
+        @keyframes animate {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes scroll {
+          to {
+            transform: translate(calc(-50% - 1rem));
+          }
+        }
+        .animate-scroll {
+           animation: scroll var(--animation-duration, 40s) linear infinite var(--animation-direction, forwards);
+        }
+        .scroller ul {
+          gap: 1rem;
+        }
+        .background-gradient-animation { /* Used for final CTA on index, not directly on ideathon page unless new section added */
+            background: linear-gradient(to bottom right, #3b82f6, #2dd4bf, #a855f7);
+            padding: 1px;
+            border-radius: 0.5rem;
+        }
+        .background-gradient-animation > div {
+             border-radius: 0.5rem;
+        }
+        @keyframes pulse-beams {
+            0%, 100% { background: radial-gradient(ellipse at center, rgba(100, 180, 255, 0.08) 0%, transparent 70%); }
+            50% { background: radial-gradient(ellipse at center, rgba(100, 180, 255, 0.15) 0%, transparent 70%); }
+        }
+        .background-beams::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 150%; height: 150%;
+            transform: translate(-50%, -50%);
+            animation: pulse-beams 10s infinite ease-in-out;
+            z-index: -1; pointer-events: none;
+        }
+        .char-animate {
+            display: inline-block; opacity: 0;
+            transform: translateY(20px) rotateX(-90deg);
+            transform-origin: bottom center;
+            animation: char-reveal 0.6s ease-out forwards;
+        }
+        .char-space { display: inline; }
+        @keyframes char-reveal {
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+        .feature-card-animate { /* For index.html features, can be reused if similar cards are on ideathon */
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .feature-card-animate.is-visible {
+            opacity: 1; transform: translateY(0);
+        }
+        .demo-placeholder-pulse { animation: pulse-subtle 2s infinite ease-in-out; }
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.08); opacity: 0.9; }
+        }
+        .shadow-custom-3d {
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.06), 0px 5px 15px rgba(0,0,0,0.1), 0px 10px 25px rgba(0,0,0,0.1);
+        }
+        .shadow-custom-3d-hover:hover {
+             box-shadow: 0px 4px 8px rgba(0,0,0,0.08), 0px 10px 25px rgba(0,0,0,0.15), 0px 15px 35px rgba(0,0,0,0.15);
+             transform: translateY(-2px);
+        }
+        .nav-logo-text { color: #1f2937; }
+        .group:hover .nav-logo-text {
+            background: linear-gradient(to right, #00ccb1, #7b61ff, #ffc414, #1ca0fb, #00ccb1);
+            background-size: 250% auto;
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent; animation: animate 2.5s linear infinite;
+        }
+        body.mobile-menu-open { overflow: hidden; }
+        #mobile-menu { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+        #mobile-menu.hidden { transform: translateY(-20px); opacity: 0; pointer-events: none; }
+        .bento-icon { flex-shrink: 0; } /* From index.html bento grid */
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } } /* For network nodes on index */
+        #network-nodes circle { transform-origin: center center; } /* For network nodes on index */
+
+        /* Tailwind Prose Customization (Optional, if needed for .prose class) */
+        .prose { @apply text-neutral-700; }
+        .prose h1, .prose h2, .prose h3, .prose h4 { @apply text-neutral-900; }
+        .prose a { @apply text-blue-600 hover:text-blue-700; }
+        .prose strong { @apply font-semibold text-neutral-900; }
+    </style>
+</head>
+<body class="antialiased ideathon-page">
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[65px] md:h-[70px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
+            <a href="/" aria-label="Back to homepage" class="smooth-scroll flex items-center group">
+                <img id="logo" src="cortexea.svg" alt="Cortexea Logo" class="h-12 md:h-16 w-auto mr-2 sm:mr-3 transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/100x32/ffffff/adb5bd?text=Logo';"> 
+                <span class="text-xl sm:text-2xl font-bold nav-logo-text">Cortexea AI</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-4">
+                <a href="/" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                    <div class="absolute inset-0"> 
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#1ca0fb,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_0_0,#ffc414,#141316)]" 
+                             style="animation: animate 1500ms linear infinite; background-size: 400% 400%;">
+                        </div> 
+                    </div>
+                    <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors"> 
+                        Home
+                    </div>
+                </a>
+                <a href="#ideathon-form-section" class="smooth-scroll-ideathon relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                    <div class="absolute inset-0"> 
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" 
+                             style="animation: animate 1500ms linear infinite; background-size: 400% 400%;">
+                        </div> 
+                    </div>
+                    <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors"> 
+                        Submit Idea
+                    </div>
+                </a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-600 hover:text-gray-800 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 block"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg>
+                    <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg py-4 z-40 hidden">
+            <nav class="flex flex-col items-center space-y-4">
+                <a href="/" class="relative p-[2px] overflow-hidden rounded-full bg-transparent">
+                    <div class="absolute inset-0"> 
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#1ca0fb,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_0_0,#ffc414,#141316)]" 
+                             style="animation: animate 1500ms linear infinite; background-size: 400% 400%;">
+                        </div> 
+                    </div>
+                    <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors"> 
+                        Home
+                    </div>
+                </a>
+                <a href="#ideathon-form-section" class="smooth-scroll-ideathon relative p-[2px] overflow-hidden rounded-full bg-transparent mt-2">
+                    <div class="absolute inset-0"> 
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" 
+                             style="animation: animate 1500ms linear infinite; background-size: 400% 400%;">
+                        </div> 
+                    </div>
+                    <div class="relative bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors"> 
+                        Submit Idea
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-[65px] md:pt-[70px]">
+        
+        <!-- Hero Section -->
+        <section id="ideathon-hero" class="relative py-20 md:py-32 bg-neutral-900 text-white">
+            <div class="absolute inset-0 background-beams opacity-30"></div>
+            <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">
+                    Cortexea Web3 Innovators University Ideathon
+                </h1>
+                <p class="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
+                    Dream it. Describe it. Decentralize it!
+                </p>
+                <p class="text-lg md:text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
+                    The Cortexea Web3 Ideathon challenges university minds to conceptualize the next wave of dApps. Bring your boldest ideas – Cortexea can help you build them.
+                </p>
+                <a href="#ideathon-form-section" class="smooth-scroll-ideathon relative p-[2px] overflow-hidden rounded-full bg-transparent inline-block">
+                    <div class="absolute inset-0"> 
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]" 
+                             style="animation: animate 1500ms linear infinite; background-size: 400% 400%;">
+                        </div> 
+                    </div>
+                    <div class="relative bg-white text-black px-8 py-3 rounded-full text-base font-medium hover:bg-gray-100 transition-colors"> 
+                        Submit Your Idea Now!
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- About dApps & Ideathon Context -->
+        <section id="ideathon-about" class="py-16 md:py-24 bg-white feature-card-animate">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900">What's a dApp? What's This Ideathon About?</h2>
+                </div>
+                <div class="prose prose-lg max-w-none text-neutral-700">
+                    <p>Decentralized Applications (dApps) are the building blocks of Web3, running on blockchain technology to offer transparency, security, and user empowerment. Think beyond traditional apps – how can you leverage dApps to solve real-world problems or create entirely new experiences in areas like finance (DeFi), digital ownership (NFTs), gaming, social networks, and more?</p>
+                    <p>This Ideathon is your chance to dive deep into the world of Web3. We're calling on all university innovators across India to brainstorm, conceptualize, and present dApp ideas that have the potential to make a real impact. No coding is required for submission – just your brilliant concepts and a clear vision!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Join? Section -->
+        <section id="ideathon-why-join" class="py-16 md:py-24 bg-gray-50 feature-card-animate">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900">Ignite Your Web3 Journey!</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col shadow-custom-3d-hover transition-all duration-300 ease-in-out">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4 self-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-4.5A3.375 3.375 0 0 0 12.75 9H11.25A3.375 3.375 0 0 0 7.5 12.375V18.75m13.5-9L12 3m0 0L4.5 9.75M12 3v13.5" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-2">Win Exciting Prizes</h3>
+                        <p class="text-neutral-600">Cash rewards and exclusive Cortexea goodies up for grabs!</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col shadow-custom-3d-hover transition-all duration-300 ease-in-out">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 text-teal-600 mb-4 self-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1 1 20.25 10.5M8.288 14.212A5.25 5.25 0 1 1 17.25 10.5" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-2">Early Access to Cortexea</h3>
+                        <p class="text-neutral-600">Be among the first to experience our AI-powered dApp development platform.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col shadow-custom-3d-hover transition-all duration-300 ease-in-out">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 mb-4 self-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-2">Build Your Portfolio</h3>
+                        <p class="text-neutral-600">Transform your winning idea into a tangible project with Cortexea.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col shadow-custom-3d-hover transition-all duration-300 ease-in-out">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-pink-100 text-pink-600 mb-4 self-start">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.822.61l-4.724-2.885a.563.563 0 0 0-.652 0l-4.724 2.885a.562.562 0 0 1-.822-.61l1.285-5.385a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-neutral-800 mb-2">Gain Recognition</h3>
+                        <p class="text-neutral-600">Get noticed by industry leaders and academic pioneers.</p>
+                    </div>
+                    <!-- Removed the 5th card ("Shape the Future") -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Dates Section -->
+        <section id="ideathon-key-dates" class="py-16 md:py-24 bg-gray-50 feature-card-animate"> 
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-16">Mark Your Calendars!</h2> 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"> 
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out h-full">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 text-pink-600 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-3.75h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-pink-600 mb-2">Submission Deadline</h3>
+                        <p class="text-xl text-neutral-800 font-medium">May 12th, 2025</p>
+                        <p class="text-sm text-neutral-600 mt-1">(End of Day, IST)</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out h-full">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068M15.75 21A9.001 9.001 0 0 0 12 3c-2.955 0-5.586 1.406-7.243 3.543M3 12c0-1.268.63-2.39 1.593-3.068M21 12a8.963 8.963 0 0 1-2.256 5.743M12 21a8.963 8.963 0 0 1-5.743-2.257M3 12a8.963 8.963 0 0 0 2.256-5.743M12 3a8.963 8.963 0 0 0 5.743 2.257" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-blue-600 mb-2">Judging Period</h3>
+                        <p class="text-xl text-neutral-800 font-medium">Mid to Late May 2025</p>
+                        <p class="text-sm text-neutral-600 mt-1">Ideas under review</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out h-full">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-4.5A3.375 3.375 0 0 0 12.75 9H11.25A3.375 3.375 0 0 0 7.5 12.375V18.75m9-9L16.5 3M9 3l-3.75 3.75M12 21V3" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-green-600 mb-2">Winner Announcement</h3>
+                        <p class="text-xl text-neutral-800 font-medium">By End of May 2025</p>
+                        <p class="text-sm text-neutral-600 mt-1">Results revealed!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submission Guidelines & Criteria Section -->
+        <section id="ideathon-guidelines" class="py-16 md:py-24 bg-gray-50 feature-card-animate">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900">How to Participate & What We're Looking For</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-semibold text-neutral-800 mb-4">Submission Process</h3>
+                        <p class="text-neutral-700 mb-3">Ready to submit your groundbreaking idea? Simply fill out the submission form below with your dApp concept.</p>
+                        <p class="text-neutral-700 font-medium mb-3">No prototypes or demos are required at this stage – we're looking for innovative and well-thought-out ideas!</p>
+                        <p class="text-neutral-700">Ensure all required fields in the form are completed thoroughly to give your idea the best chance.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-semibold text-neutral-800 mb-4">Judging Criteria</h3>
+                        <ul class="space-y-3 text-neutral-700">
+                            <li><strong class="font-semibold text-neutral-900">Creativity & Innovation (40%):</strong> How unique and original is the idea? Does it push the boundaries of current Web3 applications?</li>
+                            <li><strong class="font-semibold text-neutral-900">Impact & Potential (30%):</strong> How significant is the problem it solves or the value it creates? Who benefits and how?</li>
+                            <li><strong class="font-semibold text-neutral-900">Feasibility (30%):</strong> How practical is the idea? Can it realistically be developed (especially with a tool like Cortexea)?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Submission Form Section -->
+        <section id="ideathon-form-section" class="py-16 md:py-24 bg-gray-50 feature-card-animate">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900">Submit Your Web3 dApp Idea</h2>
+                    <p class="mt-3 text-lg text-neutral-600">Fill out the details below to enter the Cortexea Ideathon! Deadline: May 12th, 2025.</p>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200">
+                    <div id="ideathon-form-status" class="text-sm my-4 hidden rounded-md p-3"></div>
+                    <form id="ideathon-submission-form" class="space-y-6">
+                        <!-- Project Title -->
+                        <div>
+                            <label for="project-title" class="block text-sm font-medium text-gray-700 mb-1">Project Title <span class="text-red-500">*</span></label>
+                            <input type="text" name="project-title" id="project-title" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Decentralized Art Marketplace">
+                        </div>
+                        <!-- Team Name (Optional) -->
+                        <div>
+                            <label for="team-name" class="block text-sm font-medium text-gray-700 mb-1">Team Name (Optional)</label>
+                            <input type="text" name="team-name" id="team-name" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., The Blockchain Buffs">
+                        </div>
+                        <!-- Team Members -->
+                        <div>
+                            <label for="team-members" class="block text-sm font-medium text-gray-700 mb-1">Team Members (Names - one per line, if applicable)</label>
+                            <textarea name="team-members" id="team-members" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe&#10;Jane Smith"></textarea>
+                        </div>
+                        <!-- Contact Email -->
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Primary Contact Email <span class="text-red-500">*</span></label>
+                            <input type="email" name="contact-email" id="contact-email" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="you@example.com">
+                        </div>
+                        <!-- Contact Phone (Optional) -->
+                        <div>
+                            <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">Primary Contact Phone (Optional)</label>
+                            <input type="tel" name="contact-phone" id="contact-phone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="+91 XXXXXXXXXX">
+                        </div>
+                        <!-- University Name -->
+                        <div>
+                            <label for="university-name" class="block text-sm font-medium text-gray-700 mb-1">University/Institution Name(s) <span class="text-red-500">*</span></label>
+                            <input type="text" name="university-name" id="university-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Indian Institute of Technology, Kharagpur">
+                        </div>
+                         <div>
+                            <label for="dapp-category" class="block text-sm font-medium text-gray-700 mb-1">Category/Theme of dApp <span class="text-red-500">*</span></label>
+                            <input type="text" name="dapp-category" id="dapp-category" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., DeFi, NFT, Gaming, Social, Enterprise, Other">
+                        </div>
+                        <!-- Elevator Pitch -->
+                        <div>
+                            <label for="elevator-pitch" class="block text-sm font-medium text-gray-700 mb-1">Elevator Pitch (1-2 sentences, max 250 chars) <span class="text-red-500">*</span></label>
+                            <textarea name="elevator-pitch" id="elevator-pitch" rows="2" required maxlength="250" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Detailed Description -->
+                        <div>
+                            <label for="detailed-description" class="block text-sm font-medium text-gray-700 mb-1">Detailed Idea Description (Problem, Solution, Key Features - min ~150 words) <span class="text-red-500">*</span></label>
+                            <textarea name="detailed-description" id="detailed-description" rows="6" required minlength="150" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Target Users -->
+                        <div>
+                            <label for="target-users" class="block text-sm font-medium text-gray-700 mb-1">Target Users <span class="text-red-500">*</span></label>
+                            <textarea name="target-users" id="target-users" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Innovation & Uniqueness -->
+                        <div>
+                            <label for="innovation-uniqueness" class="block text-sm font-medium text-gray-700 mb-1">Innovation & Uniqueness <span class="text-red-500">*</span></label>
+                            <textarea name="innovation-uniqueness" id="innovation-uniqueness" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Potential Impact -->
+                        <div>
+                            <label for="potential-impact" class="block text-sm font-medium text-gray-700 mb-1">Potential Impact <span class="text-red-500">*</span></label>
+                            <textarea name="potential-impact" id="potential-impact" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Feasibility -->
+                        <div>
+                            <label for="feasibility" class="block text-sm font-medium text-gray-700 mb-1">Feasibility (Briefly, how could this be built? Mention if Cortexea could help) <span class="text-red-500">*</span></label>
+                            <textarea name="feasibility" id="feasibility" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- Details Link (Optional) -->
+                        <div>
+                            <label for="details-link" class="block text-sm font-medium text-gray-700 mb-1">(Optional) Sketch/Diagram/Link to further details</label>
+                            <input type="url" name="details-link" id="details-link" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="https://example.com/your-doc">
+                        </div>
+                        <!-- Agreement -->
+                        <div class="flex items-center">
+                            <input id="agree-terms" name="agree-terms" type="checkbox" required class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="agree-terms" class="ml-2 block text-sm text-gray-900">I/We agree to the Ideathon terms and conditions. <span class="text-red-500">*</span></label>
+                        </div>
+                        <!-- Submit Button -->
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                Submit Idea
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 border-t border-gray-200 mt-12 md:mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <img src="Cortexea _AI.png" alt="Cortexea Logo Small" class="h-8 w-auto mx-auto mb-4" onerror="this.onerror=null; this.src='https://placehold.co/80x24/ffffff/adb5bd?text=Logo';"/>
+            <p id="footer-year" class="mb-4"> </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                <a href="/privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="/terms" class="hover:text-blue-600 transition-colors">Terms of Service</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="/contact" class="hover:text-blue-600 transition-colors">Contact</a>
+            </div>
+             <div class="flex justify-center items-center space-x-4">
+                 <a href="https://x.com/cortexeaai" aria-label="Visit our X profile" class="text-gray-500 hover:text-blue-600 transition-colors">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                     </svg>
+                 </a>
+                 </div>
+             </div>
+    </footer>
+
+    <!-- Form Modal (Copied from index.html, ensure IDs are unique if multiple modals are ever used on one page) -->
+    <div id="form-modal" class="fixed inset-0 z-[100] bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0"> 
+        <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 w-full max-w-md relative transform scale-95 transition-transform duration-300">
+            <button data-modal-close="form-modal" aria-label="Close modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 id="form-modal-title" class="text-xl md:text-2xl font-semibold text-neutral-800 mb-4">Request Early Access</h3>
+            <p id="form-modal-description" class="text-neutral-600 text-sm mb-6">Enter your details below to join the private beta waitlist.</p>
+            
+            <div id="form-status-message" class="text-sm my-4 hidden rounded-md p-3"></div>
+            <form id="contact-form" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" name="name" id="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="Your Name">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" name="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="you@example.com">
+                </div>
+                <div>
+                     <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                     <input type="text" name="company" id="company" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="Your Company">
+                 </div>
+                 <div>
+                     <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                     <textarea name="message" id="message" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="Tell us a bit about your project or interest..."></textarea>
+                 </div>
+                <input type="text" name="_gotcha" style="display:none">
+                <input type="hidden" name="_subject" id="form-subject" value="New Contact Form Submission - Cortexea">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Join Waitlist
+                </button>
+            </form>
+             <p class="text-xs text-gray-500 mt-4 text-center">We respect your privacy.</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script>
+        // Scripts from index.html (DOMContentLoaded and its contents)
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Your Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyCRIDyIwnQxTbq8e7gJk5DoR-3rZ0hNEiE",
+                authDomain: "cortexea-ideathon.firebaseapp.com",
+                projectId: "cortexea-ideathon",
+                storageBucket: "cortexea-ideathon.appspot.com",
+                messagingSenderId: "1096139763265",
+                appId: "1:1096139763265:web:b10ef7f493eef9587e60c0",
+                measurementId: "G-JWT3SXTJXL"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore(); // Get a Firestore instance
+
+            const header = document.getElementById('main-header');
+            const headerHeight = header ? header.offsetHeight : 70;
+            // Adjusted scroll-padding for ideathon.html as it doesn't have #top
+            if (document.documentElement.style.scrollPaddingTop !== headerHeight + 'px') {
+                 document.documentElement.style.scrollPaddingTop = headerHeight + 'px';
+            }
+
+
+            const handleScrollHeader = () => { 
+                if (window.scrollY > 10) { header.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-sm'); header.classList.remove('bg-transparent'); }
+                else { header.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-sm'); header.classList.add('bg-transparent'); }
+            };
+            window.addEventListener('scroll', handleScrollHeader, { passive: true });
+            handleScrollHeader();
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button'); 
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const openMobileMenu = () => { mobileMenu.classList.remove('hidden'); hamburgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden'); mobileMenuButton.setAttribute('aria-expanded', 'true'); document.body.classList.add('mobile-menu-open'); };
+            const closeMobileMenu = () => { mobileMenu.classList.add('hidden'); hamburgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); mobileMenuButton.setAttribute('aria-expanded', 'false'); document.body.classList.remove('mobile-menu-open'); };
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => { mobileMenuButton.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu(); });
+            }
+            
+            document.querySelectorAll('a.smooth-scroll[href^="/#"]').forEach(anchor => { 
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1); // Remove /
+                    if (targetId === '#top' || targetId === '#') { window.location.href = '/'; } // Go to homepage top
+                    else {
+                        // If on homepage, scroll, else go to homepage then scroll
+                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.location.href = '/' + targetId;
+                        }
+                    }
+                    if (document.body.classList.contains('mobile-menu-open')) closeMobileMenu();
+                });
+            });
+            
+            // Smooth scroll for ideathon page internal links (like hero button to form)
+            document.querySelectorAll('a.smooth-scroll-ideathon').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href'); // Should be like "#ideathon-form-section"
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    if (document.body.classList.contains('mobile-menu-open') && typeof closeMobileMenu === 'function') {
+                       closeMobileMenu();
+                    }
+                });
+            });
+
+            // Form Modal Logic (for navbar buttons)
+            const contactFormModal = document.getElementById('contact-form'); // This is the modal's form
+            const formStatusMessageModal = document.getElementById('form-status-message'); // Modal's status message div
+            const formModalTitle = document.getElementById('form-modal-title');
+            const formModalDescription = document.getElementById('form-modal-description');
+            const formSubjectModal = document.getElementById('form-subject');
+
+            if (contactFormModal && formStatusMessageModal) {
+                contactFormModal.addEventListener('submit', function(event) {
+                    event.preventDefault(); 
+                    const formData = new FormData(contactFormModal);
+                    const submitButton = contactFormModal.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton ? submitButton.textContent : 'Submit';
+
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = 'Submitting...';
+                    }
+                    formStatusMessageModal.innerHTML = ''; 
+                    formStatusMessageModal.className = 'text-sm my-4 rounded-md p-3 hidden'; 
+                    
+                    // For modal, subject is always "New Contact Form Submission - Cortexea" unless specific logic added for "Partner with Us"
+                    if(formSubjectModal) formSubjectModal.value = 'New Contact Form Submission - Cortexea';
+
+
+                    fetch("https://formspree.io/f/mzzebvvj", {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) {
+                            formStatusMessageModal.innerHTML = '<p>Thank you! Your request has been submitted successfully.</p>';
+                            formStatusMessageModal.classList.remove('hidden');
+                            formStatusMessageModal.classList.add('bg-green-100', 'text-green-700');
+                            contactFormModal.reset(); 
+                            if (submitButton) {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = originalButtonText;
+                            }
+                        } else {
+                            response.json().then(data => {
+                                const errorText = data.errors ? data.errors.map(e => e.message).join('<br>') : 'Oops! Something went wrong. Please try again.';
+                                formStatusMessageModal.innerHTML = `<p>${errorText}</p>`;
+                                formStatusMessageModal.classList.add('bg-red-100', 'text-red-700');
+                            }).catch(() => {
+                                formStatusMessageModal.innerHTML = '<p>Oops! An unexpected error occurred. Please try again.</p>';
+                                formStatusMessageModal.classList.add('bg-red-100', 'text-red-700');
+                            });
+                            formStatusMessageModal.classList.remove('hidden');
+                            if (submitButton) {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = originalButtonText;
+                            }
+                        }
+                    }).catch(error => {
+                        formStatusMessageModal.innerHTML = '<p>Network error. Please check your connection and try again.</p>';
+                        formStatusMessageModal.classList.remove('hidden');
+                        formStatusMessageModal.classList.add('bg-red-100', 'text-red-700');
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalButtonText;
+                        }
+                    });
+                });
+            }
+
+            const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
+            const modalClosers = document.querySelectorAll('[data-modal-close]');
+
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const modalId = trigger.getAttribute('data-modal-trigger');
+                    const modal = document.getElementById(modalId);
+                    
+                    if (modal && formModalTitle && formModalDescription && contactFormModal) {
+                        formStatusMessageModal.className = 'text-sm my-4 hidden rounded-md p-3';
+                        formStatusMessageModal.innerHTML = '';
+                        contactFormModal.reset();
+                        contactFormModal.classList.remove('hidden');
+                        
+                        // Potentially customize modal title/description based on trigger if needed in future
+                        // For now, it's generic for "Request Early Access" and "Partner with Us"
+
+                        modal.classList.remove('hidden');
+                        requestAnimationFrame(() => { 
+                            modal.classList.add('opacity-100'); 
+                            modal.querySelector(':scope > div').classList.add('scale-100');
+                            modal.querySelector(':scope > div').classList.remove('scale-95'); 
+                        });
+                         const firstInput = modal.querySelector('input:not([type="hidden"]), textarea, select');
+                         if (firstInput) { firstInput.focus(); }
+                    }
+                });
+            });
+
+            modalClosers.forEach(closer => {
+                closer.addEventListener('click', () => {
+                    const modal = closer.closest('.fixed.inset-0');
+                    if (modal) {
+                        modal.classList.remove('opacity-100'); 
+                        modal.querySelector(':scope > div').classList.remove('scale-100');
+                        modal.querySelector(':scope > div').classList.add('scale-95');
+                        setTimeout(() => { modal.classList.add('hidden'); }, 300);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.fixed.inset-0[id$="-modal"]').forEach(modal => {
+                 modal.addEventListener('click', (event) => {
+                    if (event.target === modal) { 
+                        const closeButton = modal.querySelector('[data-modal-close]'); 
+                        if (closeButton) { closeButton.click(); } 
+                    }
+                 });
+            });
+
+            // --- Ideathon Form Submission to Firebase (Placeholder using Formspree) ---
+            const ideathonForm = document.getElementById('ideathon-submission-form');
+            const ideathonFormStatus = document.getElementById('ideathon-form-status'); // Corrected ID
+
+            if (ideathonForm && ideathonFormStatus) {
+                ideathonForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    const formData = new FormData(ideathonForm);
+                    const data = Object.fromEntries(formData.entries());
+                    data.submissionTimestamp = new Date().toISOString(); 
+
+                    const submitButton = ideathonForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.innerHTML;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = 'Submitting...';
+                    ideathonFormStatus.className = 'text-sm my-4 rounded-md p-3 hidden';
+                    const email = data['contact-email'];
+
+                    if (!email) { 
+                        ideathonFormStatus.innerHTML = '<p>Email address is required.</p>';
+                        ideathonFormStatus.className = 'text-sm my-4 rounded-md p-3 bg-red-100 text-red-700';
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalButtonText;
+                        }
+                        return;
+                    }
+                    
+                    const docRef = db.collection("ideathonSubmissions").doc(email);
+
+                    try {
+                        const docSnap = await docRef.get();
+                        if (docSnap.exists()) {
+                            ideathonFormStatus.innerHTML = '<p>This email has already submitted an idea.</p>';
+                            ideathonFormStatus.className = 'text-sm my-4 rounded-md p-3 bg-yellow-100 text-yellow-700';
+                        } else {
+                            await docRef.set(data);
+                            ideathonFormStatus.innerHTML = '<p>Thank you! Your idea has been submitted successfully.</p>';
+                            ideathonFormStatus.className = 'text-sm my-4 rounded-md p-3 bg-green-100 text-green-700';
+                            ideathonForm.reset();
+                        }
+                    } catch (error) {
+                        console.error("Error interacting with Firestore: ", error);
+                        ideathonFormStatus.innerHTML = '<p>Oops! Something went wrong. Please try again or contact support.</p>';
+                        ideathonFormStatus.className = 'text-sm my-4 rounded-md p-3 bg-red-100 text-red-700';
+                    } finally {
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalButtonText;
+                        }
+                    }
+                });
+            }
+
+            // Intersection Observer for animations
+            const animatedElements = document.querySelectorAll('.feature-card-animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Optional: stop observing after animation
+                    }
+                });
+            }, { threshold: 0.1 }); // Adjust threshold as needed
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+
+        }); 
+    </script>
+</body>
+</html>
